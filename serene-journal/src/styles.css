@@ -181,6 +181,30 @@ img {
   transform: translateY(-1px);
 }
 
+.social-links svg {
+  width: 15px;
+  height: 15px;
+  overflow: visible;
+}
+
+.social-links svg:not(.facebook-mark):not(.twitter-mark) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.social-links .social-mark-fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.social-links .facebook-mark,
+.social-links .twitter-mark {
+  fill: currentColor;
+}
+
 .pinterest-mark {
   font-family: Georgia, serif;
   font-size: 17px;
