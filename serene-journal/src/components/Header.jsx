@@ -1,20 +1,45 @@
 import { useState } from "react";
-import {
-  ChevronDown,
-  Facebook,
-  Instagram,
-  Menu,
-  Search,
-  Twitter,
-  X
-} from "lucide-react";
+import { ChevronDown, Menu, Search, X } from "lucide-react";
 import { CATEGORIES } from "../data/editorialPosts.js";
 
+// Lucide contains interface icons, not social-network brand marks.
+// Keep these tiny brand-style marks local so the build does not depend on
+// exports that are not present in lucide-react.
+function SocialMark({ name }) {
+  if (name === "Instagram") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle className="social-mark-fill" cx="17.7" cy="6.6" r="1" />
+      </svg>
+    );
+  }
+
+  if (name === "Facebook") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="facebook-mark">
+        <path d="M14.1 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5h1.7V3.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.1H8v3.1h2.7v8h3.4Z" />
+      </svg>
+    );
+  }
+
+  if (name === "Twitter") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="twitter-mark">
+        <path d="M21.2 6.1c-.7.3-1.4.5-2.2.6a3.7 3.7 0 0 0 1.7-2.1 7.4 7.4 0 0 1-2.4.9 3.7 3.7 0 0 0-6.4 2.5c0 .3 0 .6.1.9a10.5 10.5 0 0 1-7.6-3.9 3.7 3.7 0 0 0 1.1 5 3.7 3.7 0 0 1-1.7-.5v.1c0 1.8 1.3 3.3 3 3.7-.3.1-.7.1-1 .1-.2 0-.5 0-.7-.1.5 1.5 1.9 2.6 3.6 2.6a7.5 7.5 0 0 1-4.6 1.6H3.2a10.6 10.6 0 0 0 5.7 1.7c6.8 0 10.5-5.6 10.5-10.5v-.5c.7-.6 1.3-1.3 1.8-2.1Z" />
+      </svg>
+    );
+  }
+
+  return null;
+}
+
 const socialLinks = [
-  { label: "Instagram", icon: Instagram, href: "https://www.instagram.com/" },
-  { label: "Pinterest", icon: null, mark: "p", href: "https://www.pinterest.com/" },
-  { label: "Facebook", icon: Facebook, href: "https://www.facebook.com/" },
-  { label: "Twitter", icon: Twitter, href: "https://twitter.com/" }
+  { label: "Instagram", href: "https://www.instagram.com/" },
+  { label: "Pinterest", mark: "p", href: "https://www.pinterest.com/" },
+  { label: "Facebook", href: "https://www.facebook.com/" },
+  { label: "Twitter", href: "https://twitter.com/" }
 ];
 
 export default function Header({
@@ -70,9 +95,13 @@ export default function Header({
           </div>
 
           <div className="social-links" aria-label="Social media">
-            {socialLinks.map(({ label, icon: Icon, mark, href }) => (
+            {socialLinks.map(({ label, mark, href }) => (
               <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}>
-                {Icon ? <Icon size={15} strokeWidth={2} /> : <span className="pinterest-mark">{mark}</span>}
+                {mark ? (
+                  <span className="pinterest-mark">{mark}</span>
+                ) : (
+                  <SocialMark name={label} />
+                )}
               </a>
             ))}
           </div>
