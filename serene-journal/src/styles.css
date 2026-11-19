@@ -1246,10 +1246,23 @@ img {
   .category-nav {
     justify-content: flex-start;
     gap: 24px;
-    min-height: 42px;
+    min-height: 0;
+    max-height: 0;
     padding: 0 17px;
-    overflow-x: auto;
+    overflow: hidden;
     scrollbar-width: none;
+    border-bottom: 0;
+    transition: max-height 180ms ease, padding 180ms ease;
+  }
+
+  .category-nav.mobile-open {
+    min-height: 42px;
+    max-height: 110px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 8px 17px;
+    overflow: visible;
+    border-bottom: 1px solid #eeebea;
   }
 
   .category-nav::-webkit-scrollbar {
